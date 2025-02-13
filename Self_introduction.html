@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>公司网站示例</title>
+  <style>
+    /* 全局重置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "微软雅黑", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      padding-bottom: 60px; /* 给页脚留空间 */
+    }
+    /* 头部 */
+    header {
+      background: #2F2B4E;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    /* 导航栏（作为标签页切换按钮） */
+    nav {
+      background: #454170;
+      padding: 10px;
+      text-align: center;
+    }
+    nav button {
+      background: #6c68a3;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background: #565490;
+    }
+    /* 轮播图 */
+    .slider {
+      position: relative;
+      max-width: 1000px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .slider img {
+      width: 100%;
+      display: none;
+    }
+    .slider img.active {
+      display: block;
+    }
+    .slider .btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .slider .btn.prev {
+      left: 10px;
+    }
+    .slider .btn.next {
+      right: 10px;
+    }
+    /* 各个标签页内容区域 */
+    .tab-content {
+      display: none;
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    /* 默认显示首页 */
+    #tab-home {
+      display: block;
+    }
+    section h2 {
+      margin-bottom: 15px;
+      color: #2F2B4E;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+    /* 产品部分：简单的产品卡片布局 */
+    #tab-products .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    #tab-products .product-item {
+      flex: 1 1 calc(33% - 20px);
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      text-align: center;
+    }
+    #tab-products .product-item img {
+      max-width: 100%;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    /* 服务部分 */
+    #tab-services ul {
+      list-style: disc inside;
+      margin-left: 20px;
+    }
+    /* 页脚 */
+    footer {
+      background: #2F2B4E;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    /* 按钮 */
+    .btn-alert {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #FF5722;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 头部 -->
+  <header>
+    <h1>欢迎来到我们的公司</h1>
+    <p>优质产品与专业服务为您创造更多价值</p>
+  </header>
+
+  <!-- 导航栏（标签页切换按钮） -->
+  <nav>
+    <button onclick="switchTab('home')">首页</button>
+    <button onclick="switchTab('products')">产品</button>
+    <button onclick="switchTab('services')">服务</button>
+    <button onclick="switchTab('about')">关于我们</button>
+    <button onclick="switchTab('contact')">联系我们</button>
+  </nav>
+
+  <!-- 首页：包含轮播图和介绍 -->
+  <div id="tab-home" class="tab-content">
+    <h2>首页</h2>
+    <!-- 轮播图 -->
+    <div class="slider" id="slider">
+      <img src="https://via.placeholder.com/1000x400?text=幻灯片+1" class="active" alt="幻灯片1">
+      <img src="https://via.placeholder.com/1000x400?text=幻灯片+2" alt="幻灯片2">
+      <img src="https://via.placeholder.com/1000x400?text=幻灯片+3" alt="幻灯片3">
+      <button class="btn prev" onclick="prevSlide()">‹</button>
+      <button class="btn next" onclick="nextSlide()">›</button>
+    </div>
+    <p>欢迎来到我们的首页。在这里您可以了解公司的最新动态、新闻资讯和重点推荐。</p>
+    <button class="btn-alert" onclick="showAlert()">点击我试试</button>
+  </div>
+
+  <!-- 产品 -->
+  <div id="tab-products" class="tab-content">
+    <h2>产品</h2>
+    <div class="product-grid">
+      <div class="product-item">
+        <img src="https://via.placeholder.com/300x200?text=产品+1" alt="产品1">
+        <h3>产品1</h3>
+        <p>高性能、优质体验。</p>
+      </div>
+      <div class="product-item">
+        <img src="https://via.placeholder.com/300x200?text=产品+2" alt="产品2">
+        <h3>产品2</h3>
+        <p>创新设计、智能控制。</p>
+      </div>
+      <div class="product-item">
+        <img src="https://via.placeholder.com/300x200?text=产品+3" alt="产品3">
+        <h3>产品3</h3>
+        <p>领先技术，品质保证。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服务 -->
+  <div id="tab-services" class="tab-content">
+    <h2>服务</h2>
+    <p>我们提供以下服务：</p>
+    <ul>
+      <li>售前咨询与需求分析</li>
+      <li>产品定制化解决方案</li>
+      <li>专业技术支持与售后服务</li>
+      <li>定期系统维护与升级</li>
+    </ul>
+    <p>我们的目标是让每位客户享受高效、专业的服务体验。</p>
+  </div>
+
+  <!-- 关于我们 -->
+  <div id="tab-about" class="tab-content">
+    <h2>关于我们</h2>
+    <p>本公司成立于2025年，致力于技术创新和产品研发。我们拥有一支专业团队，专注于为客户提供领先的产品和全方位的服务。</p>
+  </div>
+
+  <!-- 联系我们 -->
+  <div id="tab-contact" class="tab-content">
+    <h2>联系我们</h2>
+    <p>如果您有任何疑问或合作意向，请联系我们：</p>
+    <p>电话：123-456-7890</p>
+    <p>邮箱：info@example.com</p>
+    <p>地址：某市某区某街道</p>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    © 2025 我们的公司. 保留所有权利.
+  </footer>
+
+  <!-- JavaScript 部分 -->
+  <script>
+    // 标签页切换功能
+    function switchTab(tabName) {
+      // 隐藏所有内容区域
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => {
+        content.style.display = 'none';
+      });
+      // 显示选中的区域
+      document.getElementById('tab-' + tabName).style.display = 'block';
+    }
+
+    // 图片轮播效果
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slider img');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
+    }
+    // 自动播放轮播图（仅在首页显示时生效）
+    setInterval(() => {
+      // 仅当首页内容显示时才切换轮播图
+      if (document.getElementById('tab-home').style.display !== 'none') {
+        nextSlide();
+      }
+    }, 3000);
+
+    // 按钮点击提示
+    function showAlert() {
+      alert('按钮被点击了！');
+    }
+    window.onload = function() {
+      console.log('网页加载完毕');
+    };
+  </script>
+
+</body>
+</html>
